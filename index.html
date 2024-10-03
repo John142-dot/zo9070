@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codex Inspired UI with Splash Effect</title>
+    <title>Codex Inspired UI with Moving Bubbles</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #1e1e1e;
             color: #ffffff;
+            overflow: hidden; /* Prevent scrollbars from appearing */
         }
         header {
             background-color: #282828;
@@ -27,12 +28,14 @@
         .hero {
             text-align: center;
             padding: 50px 20px;
+            position: relative; /* For positioning bubbles */
         }
         .hero h1 {
             font-size: 48px;
             background: linear-gradient(to right, red, black);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; /* For Safari */
+            text-shadow: 0 0 10px red; /* Glowing effect */
         }
         
         .button {
@@ -47,6 +50,19 @@
 
         .button:hover {
             background-color: #ff1a75; /* Darker light red on hover */
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: -5px; 
+            left: -5px; 
+            right: -5px; 
+            bottom: -5px; 
+            background-color: rgba(255, 77, 166, 0.6); /* Light red glow */
+            border-radius: inherit; /* Match button's border radius */
+            filter: blur(10px); /* Blur for glowing effect */
+            z-index: -1; /* Place behind the button */
         }
 
         .splash {
@@ -65,10 +81,15 @@
             background-color: #282828;
             text-align: center;
             padding: 10px 0;
-            position: absolute;
-            width: 100%;
-            bottom: 0;
         }
+
+        .bubble {
+           position:absolute;
+           border-radius :50%;
+           background :rgba(255,0,0,0.6);
+           pointer-events:none; /* Prevent interaction with bubbles */
+       }
+
     </style>
 </head>
 <body>
@@ -94,33 +115,75 @@
 </footer>
 
 <script>
+    // Function to show splash effect
     function showSplash() {
         const splash = document.getElementById('splash');
         splash.style.opacity = '1'; // Show the splash
         splash.style.pointerEvents = 'auto'; // Allow interaction
 
         setTimeout(() => {
-            splash.style.opacity = '0'; // Fade out the splash
-            splash.style.pointerEvents = 'none'; // Prevent interaction after fade out
-        }, 500); // Duration of the splash visibility
+          splash.style.opacity = '0'; // Fade out the splash
+          splash.style.pointerEvents = 'none'; // Prevent interaction after fade out
+      },500); // Duration of the splash visibility
     }
 
+    // Function to copy text to clipboard
     function copyToClipboard() {
-        const textToCopy = "https://www.example.com"; // Change this to the URL or text you want to copy
+      const textToCopy = "https://www.example.com"; // Change this to the URL or text you want to copy
        
-        navigator.clipboard.writeText(textToCopy).then(() => {
-           console.log('Text copied to clipboard:', textToCopy);
-           showSplash(); // Show splash effect on click
-           alert("Link copied to clipboard!"); // Optional alert for feedback
-       }).catch(err => {
-           console.error('Could not copy text:', err);
-       });
+      navigator.clipboard.writeText(textToCopy).then(() => {
+          console.log('Text copied to clipboard:', textToCopy);
+          showSplash(); // Show splash effect on click
+          alert("Link copied to clipboard!"); // Optional alert for feedback
+      }).catch(err => {
+          console.error('Could not copy text:', err);
+      });
     }
+
+    // Create moving bubbles like DVD logo
+    function createBubble() {
+      const bubble = document.createElement('div');
+      const size = Math.random() * (60 - 20) + 20; // Random size between 20 and 60 pixels
+      bubble.classList.add('bubble');
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = Math.random() * (window.innerWidth - size) + 'px'; // Random horizontal position
+      bubble.style.top = Math.random() * (window.innerHeight - size) + 'px'; // Random vertical position
+
+      document.body.appendChild(bubble);
+
+      // Set random direction for movement
+      let directionX = Math.random() < 0.5 ? -1 : 1; 
+      let directionY = Math.random() < 0.5 ? -1 : 1;
+
+      const speed = Math.random() * (2 - 1) + 1; // Random speed
+
+      function moveBubble() {
+          const rect = bubble.getBoundingClientRect();
+          if (rect.left <= 0 || rect.right >= window.innerWidth) directionX *= -1; // Reverse direction on horizontal edge
+          if (rect.top <= 0 || rect.bottom >= window.innerHeight) directionY *= -1; // Reverse direction on vertical edge
+
+          bubble.style.left = rect.left + (directionX * speed) + 'px';
+          bubble.style.top = rect.top + (directionY * speed) + 'px';
+
+          requestAnimationFrame(moveBubble); // Continue moving the bubble
+      }
+
+      moveBubble(); // Start moving the bubble
+
+      // Remove bubble after some time
+      setTimeout(() => {
+          bubble.remove();
+      }, Math.random() * (10000 - 5000) + 5000); // Remove after random time between 5 and 10 seconds
+    }
+
+    // Create bubbles at regular intervals
+    setInterval(createBubble, 1000); // Create a new bubble every second
 
     // Add event listeners to all clickable elements
     document.querySelectorAll('.button, nav a').forEach(element => {
-        element.addEventListener('click', showSplash);
-    });
+      element.addEventListener('click', showSplash);
+   });
 </script>
 
 </body>
