@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codex Inspired UI with Moving Bubbles</title>
+    <title>Codex Inspired UI with Splash Effect</title>
     <style>
         body {
             margin: 0;
@@ -34,14 +34,14 @@
         .hero h1 {
             font-size: 48px;
             color: red; /* Start with red */
+            background-image: linear-gradient(to bottom, red, black); /* Gradient from red to black */
+            -webkit-background-clip: text; /* Clip background to text */
+            -webkit-text-fill-color: transparent; /* Fill color for Safari */
             text-shadow: 
                 0 0 5px rgba(255, 0, 0, 0.7), /* Red glow */
                 0 0 10px rgba(255, 0, 0, 0.5), 
                 0 0 15px rgba(255, 0, 0, 0.3),
                 0 0 20px black; /* Fade to black */
-            background-image: linear-gradient(to bottom, red, black); /* Background gradient for fade effect */
-            -webkit-background-clip: text; /* Clip background to text */
-            -webkit-text-fill-color: transparent; /* Fill color for Safari */
         }
         
         .button {
@@ -165,7 +165,7 @@
       let directionX = Math.random() < 0.5 ? -1 : 1; 
       let directionY = Math.random() < 0.5 ? -1 : 1;
 
-      const speed = Math.random() * (2 - 1) + 1; // Random speed
+      const speed = Math.random() * (1 - 0.5) + 0.5; // Slower speed
 
       function moveBubble() {
           const rect = bubble.getBoundingClientRect();
@@ -181,7 +181,7 @@
       moveBubble(); // Start moving the bubble
     }
 
-    // Create a total of 10 bubbles at the beginning
+    // Create a total of **10 bubbles** at the beginning
     for (let i = 0; i < 10; i++) {
        createBubble();
    }
