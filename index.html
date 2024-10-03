@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codex Inspired UI</title>
+    <title>Codex Inspired UI with Splash Effect</title>
     <style>
         body {
             margin: 0;
@@ -30,18 +30,37 @@
         }
         .hero h1 {
             font-size: 48px;
+            background: linear-gradient(to right, red, black);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* For Safari */
         }
+        
         .button {
-            background-color: #ff4da6;
+            background-color: #ff4da6; /* Light red button color */
             color: white;
             padding: 15px 30px;
             border-radius: 5px;
             text-decoration: none;
             font-size: 18px;
+            position: relative; /* For glowing effect */
         }
+
         .button:hover {
-            background-color: #ff1a75;
+            background-color: #ff1a75; /* Darker light red on hover */
         }
+
+        .splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 0, 0, 0.5); /* Red transparent */
+            opacity: 0; /* Initially hidden */
+            pointer-events: none; /* Prevent interaction */
+            transition: opacity 0.5s ease; /* Smooth transition */
+        }
+
         footer {
             background-color: #282828;
             text-align: center;
@@ -63,14 +82,46 @@
 </header>
 
 <div class="hero">
-    <h1>Welcome to Codex Executor</h1>
+    <h1>Welcome to <span style="color:red;">Codex Executor</span></h1> <!-- Red text for "Codex Executor" -->
     <p>Your ultimate tool for Roblox scripting.</p>
-    <a href="#" class="button">Download Now</a>
+    <a href="#" class="button" onclick="copyToClipboard()">Download Now</a>
 </div>
+
+<div class="splash" id="splash"></div>
 
 <footer>
     &copy; 2024 Codex Executor | All rights reserved
 </footer>
+
+<script>
+    function showSplash() {
+        const splash = document.getElementById('splash');
+        splash.style.opacity = '1'; // Show the splash
+        splash.style.pointerEvents = 'auto'; // Allow interaction
+
+        setTimeout(() => {
+            splash.style.opacity = '0'; // Fade out the splash
+            splash.style.pointerEvents = 'none'; // Prevent interaction after fade out
+        }, 500); // Duration of the splash visibility
+    }
+
+    function copyToClipboard() {
+        const textToCopy = "https://www.example.com"; // Change this to the URL or text you want to copy
+       
+        navigator.clipboard.writeText(textToCopy).then(() => {
+           console.log('Text copied to clipboard:', textToCopy);
+           showSplash(); // Show splash effect on click
+           alert("Link copied to clipboard!"); // Optional alert for feedback
+       }).catch(err => {
+           console.error('Could not copy text:', err);
+       });
+    }
+
+    // Add event listeners to all clickable elements
+    document.querySelectorAll('.button, nav a').forEach(element => {
+        element.addEventListener('click', showSplash);
+    });
+</script>
 
 </body>
 </html>
