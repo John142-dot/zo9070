@@ -3,127 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glowing Text with Image</title>
+    <title>Codex Inspired UI</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background: linear-gradient(to bottom, gray, black); /* Gray to black gradient */
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
-
-        .content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1; /* Allow content to grow and take up available space */
-        }
-
-        .rainbow-text {
-            font-size: 80px;
-            color: white;
+        header {
+            background-color: #282828;
+            padding: 10px 20px;
             text-align: center;
-            text-decoration: none; /* Remove underline */
-            animation: glow 1s ease-in-out infinite alternate, rainbow 3s linear infinite;
         }
-
-        .glowing-text {
-            font-size: 50px; /* Adjust size as needed */
-            color: white;
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .hero {
             text-align: center;
-            animation: glowText 1s ease-in-out infinite alternate; /* Glow effect */
+            padding: 50px 20px;
         }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
-            }
-            to {
-                text-shadow: 0 0 20px #ff4da6, 0 0 30px #ff4da6, 0 0 40px #ff4da6;
-            }
+        .hero h1 {
+            font-size: 48px;
         }
-
-        @keyframes rainbow {
-            0% { color: red; }
-            14% { color: orange; }
-            28% { color: yellow; }
-            42% { color: green; }
-            57% { color: blue; }
-            71% { color: indigo; }
-            85% { color: violet; }
-            100% { color: red; }
-        }
-
-        @keyframes glowText {
-            from {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-            }
-            to {
-                text-shadow: 0 0 20px #fff, 0 0 30px #fff;
-            }
-        }
-
-        .splash {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 500px;
-            height: 500px;
-            background-color: transparent;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            display: none; /* Initially hidden */
-        }
-
-        .footer {
+        .button {
+            background-color: #ff4da6;
             color: white;
-            text-align: center;
-            padding: 10px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
         }
-
+        .button:hover {
+            background-color: #ff1a75;
+        }
+        footer {
+            background-color: #282828;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="content">
-        <a href="https://www.example.com" target="_blank" class="rainbow-text">Glowing Rainbow Text!</a>
-        <h2 class="glowing-text">First Glowing Text!</h2>
-        <h2 class="glowing-text">Second Glowing Text!</h2>
-        <img src="your-image-url.jpg" alt="Your Image" class="image">
-        <div class="splash" id="splash"></div>
-    </div>
-    <footer class="footer">All rights reserved</footer>
 
-    <script>
-        window.onload = function() {
-            setTimeout(() => {
-                const splash = document.getElementById('splash');
-                splash.style.display = 'block'; // Show the splash
-                splash.style.background = 'radial-gradient(circle, rgba(255,165,0,1) 0%, rgba(255,165,0,0) 100%)';
-                splash.style.animation = 'fadeOutSplash 2s forwards'; // Start the fade out animation
-                setTimeout(() => {
-                    splash.style.display = 'none'; // Hide the splash after fading out
-                }, 2000);
-            }, 19000); // Show the splash after 19 seconds
-        };
+<header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Download</a>
+    </nav>
+</header>
 
-        // Add CSS for the fade out animation
-        const style = document.createElement('style');
-        style.innerHTML = `
-        @keyframes fadeOutSplash {
-            from {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(2);
-            }
-        }`;
-        document.head.appendChild(style);
-    </script>
+<div class="hero">
+    <h1>Welcome to Codex Executor</h1>
+    <p>Your ultimate tool for Roblox scripting.</p>
+    <a href="#" class="button">Download Now</a>
+</div>
+
+<footer>
+    &copy; 2024 Codex Executor | All rights reserved
+</footer>
+
 </body>
 </html>
