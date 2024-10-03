@@ -70,7 +70,7 @@
             color: white;
             padding:10px; 
             border-radius:5px; 
-            box-shadow: 
+            box-shadow:
                 rgba(255,255,255,.2)  2px  2px  10px,
                 rgba(255  ,.2)  2px  2px  10px; 
              opacity :1; 
@@ -81,11 +81,6 @@
              opacity :  ; 
              transform :translateY(100%); 
          }
-         @media (min-width:768px) {
-             footer {
-                 display:none; 
-             }
-         }
          footer {
            background-color:#282828;  
            text-align:center;  
@@ -94,6 +89,11 @@
            width :100%;  
            bottom :0;  
            z-index :1;  
+       }
+       @media (min-width:768px) {
+           footer {
+               display:none; 
+           }
        }
        .bubble {
            position:absolute;  
