@@ -120,7 +120,9 @@
        .aura {
            position:absolute ;
            border-radius :50% ;
-           background :rgba(255,0,0,0.3) ; /* Red aura effect */
+           background :rgba(255,255,255,0.3) ; /* White aura effect */
+           width :150%; 
+           height :150%; 
            z-index:-1 ; /* Behind the image */
        }
 
@@ -129,7 +131,7 @@
 <body>
 
 <div class="intro-overlay" id="introOverlay">
-    <div class="aura" style="width:150%; height:150%;"></div> <!-- Red aura effect -->
+    <div class="aura"></div> <!-- White aura effect -->
     <img src="your-glowing-aura-image-url.png" alt="Glowing Aura"> <!-- Replace with your image URL -->
 </div>
 
