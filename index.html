@@ -1,242 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Codex Inspired UI with Splash Effect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z😀</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
-            overflow: hidden; /* Prevent scrollbars from appearing */
-        }
-        header {
-            background-color: #282828;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        nav {
-            margin-bottom: 20px;
-        }
-        nav a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-            position: relative; /* For positioning bubbles */
-            z-index: 1; /* Ensure UI elements are on top of bubbles */
-        }
-        .hero h1 {
-            font-size: 48px;
-            color: red; /* Start with red */
-            background-image: linear-gradient(to bottom, red, black); /* Gradient from red to black */
-            -webkit-background-clip: text; /* Clip background to text */
-            -webkit-text-fill-color: transparent; /* Fill color for Safari */
-            text-shadow: 
-                0 0 5px rgba(255, 0, 0, 0.7), /* Red glow */
-                0 0 10px rgba(255, 0, 0, 0.5), 
-                0 0 15px rgba(255, 0, 0, 0.3),
-                0 0 20px black; /* Fade to black */
-        }
-        
-        .button {
-            background-color: #ff0000; /* Actual red button color */
-            color: white;
-            padding: 15px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 18px;
-            position: relative; /* For glowing effect */
-        }
-
-        .button:hover {
-            background-color: #cc0000; /* Darker red on hover */
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: -5px; 
-            left: -5px; 
-            right: -5px; 
-            bottom: -5px; 
-            background-color: rgba(255, 0, 0, 0.6); /* Light red glow */
-            border-radius: inherit; /* Match button's border radius */
-            z-index: -1; /* Place behind the button */
-        }
-
-        .splash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 0, 0, 0.5); /* Red transparent */
-            opacity: 0; /* Initially hidden */
-            pointer-events: none; /* Prevent interaction */
-            transition: opacity 0.5s ease; /* Smooth transition */
-        }
-
-        footer {
-           background-color: #282828;
-           text-align: center;
-           padding: 10px 0;
-           position:absolute;
-           width :100%;
-           bottom :0 ;
-           z-index :1; /* Ensure footer is above bubbles */
+            padding: 0;
+            background: linear-gradient(135deg, #1E90FF, #87CEEB);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
         }
 
         .bubble {
-           position:absolute;
-           border-radius :50%;
-           background :rgba(255,0,0,0.6);
-           pointer-events:none; /* Prevent interaction with bubbles */
-       }
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            background-color: #FF6347;
+        }
 
-       .intro-overlay {
-           position: fixed;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background-color: black; /* Black background for intro */
-           display:flex ;
-           justify-content:center ;
-           align-items:center ;
-           z-index :2 ; /* Ensure it's above everything else */
-       }
+        .glowing-text {
+            font-size: 3em;
+            font-weight: bold;
+            color: #00ffea;
+            text-align: center;
+            cursor: pointer;
+            text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea, 0 0 30px #00ffea; 
+            position: relative;
+            z-index: 2;
+        }
 
-       .intro-overlay img {
-           max-width :80%; /* Responsive image size */
-           max-height :80%; 
-       }
+        .squircle-btn {
+            background-color: red;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            z-index: 2;
+        }
 
-       .aura {
-           position:absolute ;
-           border-radius :50% ;
-           background :rgba(255,255,255,0.3) ; /* White aura effect */
-           width :150%; 
-           height :150%; 
-           z-index:-1 ; /* Behind the image */
-       }
+        .squircle-btn:hover {
+            background-color: #ff4500; 
+        }
 
+        .neon-green {
+            background-color: #39ff14 !important; 
+            box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14; 
+        }
     </style>
 </head>
+
 <body>
 
-<div class="intro-overlay" id="introOverlay">
-    <div class="aura"></div> <!-- White aura effect -->
-    <img src="your-glowing-aura-image-url.png" alt="Glowing Aura"> <!-- Replace with your image URL -->
-</div>
+    <img src="path/to/image.png" alt="Image above text" style="position: absolute; top: -50px; z-index: 1;" />
 
-<header>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Download</a>
-    </nav>
-</header>
+    <div class="glowing-text" onclick="goToURL()">
+        Zonkey
+    </div>
 
-<div class="hero">
-    <h1>Welcome to <span style="color:red;">Codex Executor</span></h1> <!-- Red text for "Codex Executor" -->
-    <p>Your ultimate tool for Roblox scripting.</p>
-    <a href="#" class="button" onclick="copyToClipboard()">Download Now</a>
-</div>
+    <button class="squircle-btn" id="infoButton" onclick="handleInfoClick()">
+        Info
+    </button>
 
-<div class="splash" id="splash"></div>
+    <script>
+        function goToURL() {
+            window.location.href = "https://dcinv-source.vercel.app/";
+        }
 
-<footer>
-    &copy; 2024 Codex Executor | All rights reserved
-</footer>
+        function handleInfoClick() {
+            const button = document.getElementById('infoButton');
+            button.classList.add('neon-green');
+            window.location.href = "https://cubixing.vercel.app/";
+        }
 
-<script>
-    // Function to show splash effect
-    function showSplash() {
-        const splash = document.getElementById('splash');
-        splash.style.opacity = '1'; // Show the splash
-        splash.style.pointerEvents = 'auto'; // Allow interaction
+        function createBubbles() {
+            const numBubbles = 15; 
+            const bubbleSizes = [50, ...Array(12).fill(120)];
+            bubbleSizes.sort(() => Math.random() - 0.5);
 
-        setTimeout(() => {
-          splash.style.opacity = '0'; // Fade out the splash
-          splash.style.pointerEvents = 'none'; // Prevent interaction after fade out
-      },500); // Duration of the splash visibility
-    }
+            for (let i = 0; i < numBubbles; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                document.body.appendChild(bubble);
+                bubble.style.width = bubbleSizes[i] + 'px';
+                bubble.style.height = bubbleSizes[i] + 'px';
+                const minYPosition = window.innerHeight - (bubbleSizes[i] + 150);
+                bubble.style.left = Math.random() * (window.innerWidth - bubbleSizes[i]) + 'px';
+                bubble.style.top = Math.random() * minYPosition + 'px';
+                bubble.velocityX = (Math.random() - 0.5) * (4 / 3);
+                bubble.velocityY = (Math.random() - 0.5) * (4 / 3);
+                animateBubble(bubble);
+            }
+        }
 
-    // Function to copy text to clipboard
-    function copyToClipboard() {
-      const textToCopy = "https://www.example.com"; // Change this to the URL or text you want to copy
-       
-      navigator.clipboard.writeText(textToCopy).then(() => {
-          console.log('Text copied to clipboard:', textToCopy);
-          showSplash(); // Show splash effect on click
-          alert("Link copied to clipboard!"); // Optional alert for feedback
-      }).catch(err => {
-          console.error('Could not copy text:', err);
-      });
-    }
+        function animateBubble(bubble) {
+            function moveBubble() {
+                let posX = parseFloat(bubble.style.left);
+                let posY = parseFloat(bubble.style.top);
+                posX += bubble.velocityX;
+                posY += bubble.velocityY;
 
-    // Create moving bubbles like DVD logo
-    function createBubble() {
-      const bubble = document.createElement('div');
-      const size = Math.random() * (80 - 30) + 30; // Random size between 30 and 80 pixels
-      bubble.classList.add('bubble');
-      bubble.style.width = size + 'px';
-      bubble.style.height = size + 'px';
-      bubble.style.left = Math.random() * (window.innerWidth - size) + 'px'; // Random horizontal position
-      bubble.style.top = Math.random() * (window.innerHeight - size) + 'px'; // Random vertical position
+                if (posX <= 0 || posX >= window.innerWidth - parseFloat(bubble.style.width)) {
+                    bubble.velocityX *= -1; 
+                }
+                if (posY <= 0 || posY >= window.innerHeight - parseFloat(bubble.style.height)) {
+                    bubble.velocityY *= -1; 
+                }
 
-      document.body.appendChild(bubble);
+                bubble.style.left = posX + 'px';
+                bubble.style.top = posY + 'px';
 
-      // Set random direction for movement
-      let directionX = Math.random() < 0.5 ? -1 : 1; 
-      let directionY = Math.random() < 0.5 ? -1 : 1;
+                requestAnimationFrame(moveBubble);
+            }
+            moveBubble();
+        }
 
-      const speed = Math.random() * (1 - 0.3) + 0.3; // Slower speed
+        window.onload = createBubbles;
 
-      function moveBubble() {
-          const rect = bubble.getBoundingClientRect();
-          
-          // Edge detection logic
-          if (rect.left <= -size || rect.right >= window.innerWidth + size) directionX *= -1; // Reverse direction on horizontal edge
-          if (rect.top <= -size || rect.bottom >= window.innerHeight + size) directionY *= -1; // Reverse direction on vertical edge
-
-          bubble.style.left = rect.left + (directionX * speed) + 'px';
-          bubble.style.top = rect.top + (directionY * speed) + 'px';
-
-          requestAnimationFrame(moveBubble); // Continue moving the bubble
-      }
-
-      moveBubble(); // Start moving the bubble
-    }
-
-    // Create a total of **10 bubbles** at the beginning
-    for (let i = 0; i < 10; i++) {
-       createBubble();
-   }
-
-   // Add event listeners to all clickable elements
-   document.querySelectorAll('.button, nav a').forEach(element => {
-       element.addEventListener('click', showSplash);
-   });
-
-   // Fade out intro overlay after **4 seconds**
-   setTimeout(() => {
-       const introOverlay = document.getElementById('introOverlay');
-       introOverlay.style.transition = "opacity 2s ease"; // Smooth transition effect
-       introOverlay.style.opacity = '0'; // Fade out the overlay
-
-       setTimeout(() => {
-           introOverlay.style.display = 'none'; // Hide overlay after fade out
-       },2000); // Wait for fade out duration before hiding
-   },4000); // Wait for **4 seconds** before starting fade out
-
-</script>
-
+    </script>
 </body>
+
 </html>
