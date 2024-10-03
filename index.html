@@ -29,17 +29,23 @@
             text-align: center;
             padding: 50px 20px;
             position: relative; /* For positioning bubbles */
+            z-index: 1; /* Ensure UI elements are on top of bubbles */
         }
         .hero h1 {
             font-size: 48px;
-            background: linear-gradient(to right, red, black);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; /* For Safari */
-            text-shadow: 0 0 10px red; /* Glowing effect */
+            color: red; /* Start with red */
+            text-shadow: 
+                0 0 5px rgba(255, 0, 0, 0.7), /* Red glow */
+                0 0 10px rgba(255, 0, 0, 0.5), 
+                0 0 15px rgba(255, 0, 0, 0.3),
+                0 0 20px black; /* Fade to black */
+            background-image: linear-gradient(to bottom, red, black); /* Background gradient for fade effect */
+            -webkit-background-clip: text; /* Clip background to text */
+            -webkit-text-fill-color: transparent; /* Fill color for Safari */
         }
         
         .button {
-            background-color: #ff4da6; /* Light red button color */
+            background-color: #ff0000; /* Actual red button color */
             color: white;
             padding: 15px 30px;
             border-radius: 5px;
@@ -49,7 +55,7 @@
         }
 
         .button:hover {
-            background-color: #ff1a75; /* Darker light red on hover */
+            background-color: #cc0000; /* Darker red on hover */
         }
 
         .button::before {
@@ -59,9 +65,8 @@
             left: -5px; 
             right: -5px; 
             bottom: -5px; 
-            background-color: rgba(255, 77, 166, 0.6); /* Light red glow */
+            background-color: rgba(255, 0, 0, 0.6); /* Light red glow */
             border-radius: inherit; /* Match button's border radius */
-            filter: blur(10px); /* Blur for glowing effect */
             z-index: -1; /* Place behind the button */
         }
 
@@ -78,9 +83,13 @@
         }
 
         footer {
-            background-color: #282828;
-            text-align: center;
-            padding: 10px 0;
+           background-color: #282828;
+           text-align: center;
+           padding: 10px 0;
+           position:absolute;
+           width :100%;
+           bottom :0 ;
+           z-index :1; /* Ensure footer is above bubbles */
         }
 
         .bubble {
@@ -143,7 +152,7 @@
     // Create moving bubbles like DVD logo
     function createBubble() {
       const bubble = document.createElement('div');
-      const size = Math.random() * (60 - 20) + 20; // Random size between 20 and 60 pixels
+      const size = Math.random() * (80 - 30) + 30; // Random size between 30 and 80 pixels
       bubble.classList.add('bubble');
       bubble.style.width = size + 'px';
       bubble.style.height = size + 'px';
@@ -170,19 +179,16 @@
       }
 
       moveBubble(); // Start moving the bubble
-
-      // Remove bubble after some time
-      setTimeout(() => {
-          bubble.remove();
-      }, Math.random() * (10000 - 5000) + 5000); // Remove after random time between 5 and 10 seconds
     }
 
-    // Create bubbles at regular intervals
-    setInterval(createBubble, 1000); // Create a new bubble every second
+    // Create a total of 10 bubbles at the beginning
+    for (let i = 0; i < 10; i++) {
+       createBubble();
+   }
 
-    // Add event listeners to all clickable elements
-    document.querySelectorAll('.button, nav a').forEach(element => {
-      element.addEventListener('click', showSplash);
+   // Add event listeners to all clickable elements
+   document.querySelectorAll('.button, nav a').forEach(element => {
+       element.addEventListener('click', showSplash);
    });
 </script>
 
