@@ -78,7 +78,7 @@
              z-index :100; 
          }
          .hidden {
-             opacity :  ; 
+             opacity :0; 
              transform :translateY(100%); 
          }
          footer {
@@ -177,8 +177,12 @@
              const notification = document.getElementById('notification');
              notification.classList.remove('hidden');
              setTimeout(() => {
+                 notification.style.opacity = '0';
+             }, 1500);
+             setTimeout(() => {
                  notification.classList.add('hidden');
-             },2000);
+                 notification.style.opacity = '1';
+             }, 2500);
          });
      });
 
