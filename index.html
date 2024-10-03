@@ -201,6 +201,8 @@
 
       function moveBubble() {
           const rect = bubble.getBoundingClientRect();
+          
+          // Edge detection logic
           if (rect.left <= -size || rect.right >= window.innerWidth + size) directionX *= -1; // Reverse direction on horizontal edge
           if (rect.top <= -size || rect.bottom >= window.innerHeight + size) directionY *= -1; // Reverse direction on vertical edge
 
