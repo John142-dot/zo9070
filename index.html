@@ -99,9 +99,31 @@
            pointer-events:none; /* Prevent interaction with bubbles */
        }
 
+       .intro-overlay {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-color: black; /* Black background for intro */
+           display:flex ;
+           justify-content:center ;
+           align-items:center ;
+           z-index :2 ; /* Ensure it's above everything else */
+       }
+
+       .intro-overlay img {
+           max-width :80%; /* Responsive image size */
+           max-height :80%; 
+       }
+
     </style>
 </head>
 <body>
+
+<div class="intro-overlay" id="introOverlay">
+    <img src="your-glowing-aura-image-url.png" alt="Glowing Aura"> <!-- Replace with your image URL -->
+</div>
 
 <header>
     <nav>
@@ -165,7 +187,7 @@
       let directionX = Math.random() < 0.5 ? -1 : 1; 
       let directionY = Math.random() < 0.5 ? -1 : 1;
 
-      const speed = Math.random() * (1 - 0.5) + 0.5; // Slower speed
+      const speed = Math.random() * (1 - 0.3) + 0.3; // Slower speed
 
       function moveBubble() {
           const rect = bubble.getBoundingClientRect();
@@ -190,6 +212,18 @@
    document.querySelectorAll('.button, nav a').forEach(element => {
        element.addEventListener('click', showSplash);
    });
+
+   // Fade out intro overlay after **20 seconds**
+   setTimeout(() => {
+       const introOverlay = document.getElementById('introOverlay');
+       introOverlay.style.transition = "opacity 2s ease"; // Smooth transition effect
+       introOverlay.style.opacity = '0'; // Fade out the overlay
+
+       setTimeout(() => {
+           introOverlay.style.display = 'none'; // Hide overlay after fade out
+       },2000); // Wait for fade out duration before hiding
+   },20000); // Wait for **20 seconds** before starting fade out
+
 </script>
 
 </body>
