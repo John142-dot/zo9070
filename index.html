@@ -11,8 +11,6 @@
             background-color: #1e1e1e;
             color: #ffffff;
             overflow: hidden; /* Prevent scrollbars from appearing */
-            height: 100vh; /* Ensure body takes full height */
-            position: relative; /* For positioning bubbles */
         }
         header {
             background-color: #282828;
@@ -39,13 +37,13 @@
             background-image: linear-gradient(to bottom, red, black); /* Gradient from red to black */
             -webkit-background-clip: text; /* Clip background to text */
             -webkit-text-fill-color: transparent; /* Fill color for Safari */
-            text-shadow:
+            text-shadow: 
                 0 0 5px rgba(255, 0, 0, 0.7), /* Red glow */
-                0 0 10px rgba(255, 0, 0, 0.5),
+                0 0 10px rgba(255, 0, 0, 0.5), 
                 0 0 15px rgba(255, 0, 0, 0.3),
                 0 0 20px black; /* Fade to black */
         }
-
+        
         .button {
             background-color: #ff0000; /* Actual red button color */
             color: white;
@@ -97,7 +95,7 @@
         .bubble {
            position:absolute;
            border-radius :50%;
-           background :rgba(255,0,0,0.6); /* Red color for bubbles */
+           background :rgba(255,0,0,0.6);
            pointer-events:none; /* Prevent interaction with bubbles */
        }
 
@@ -122,9 +120,7 @@
        .aura {
            position:absolute ;
            border-radius :50% ;
-           background :rgba(255,255,255,0.3) ; /* White aura effect */
-           width :150%; 
-           height :150%; 
+           background :rgba(255,0,0,0.3) ; /* Red aura effect */
            z-index:-1 ; /* Behind the image */
        }
 
@@ -183,72 +179,59 @@
       });
     }
 
-    function createBubbles() {
-      const numBubbles = 15; 
-      const bubbleSizes = [50, ...Array(12).fill(120)];
-      bubbleSizes.sort(() => Math.random() - 0.5);
+    // Create moving bubbles like DVD logo
+    function createBubble() {
+      const bubble = document.createElement('div');
+      const size = Math.random() * (80 - 30) + 30; // Random size between 30 and 80 pixels
+      bubble.classList.add('bubble');
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = Math.random() * (window.innerWidth - size) + 'px'; // Random horizontal position
+      bubble.style.top = Math.random() * (window.innerHeight - size) + 'px'; // Random vertical position
 
-      for (let i = 0; i < numBubbles; i++) {
-          const bubble = document.createElement('div');
-          bubble.className = 'bubble';
-          document.body.appendChild(bubble);
-          bubble.style.width = bubbleSizes[i] + 'px';
-          bubble.style.height = bubbleSizes[i] + 'px';
+      document.body.appendChild(bubble);
 
-          // Set initial position
-          bubble.style.left = Math.random() * (window.innerWidth - bubbleSizes[i]) + 'px';
-          bubble.style.top = Math.random() * (window.innerHeight - bubbleSizes[i]) + 'px';
+      // Set random direction for movement
+      let directionX = Math.random() < 0.5 ? -1 : 1; 
+      let directionY = Math.random() < 0.5 ? -1 : 1;
 
-          // Set initial velocity
-          bubble.velocityX = (Math.random() - 0.5) * (4 / (i + Math.random()));
-          bubble.velocityY = (Math.random() - 0.5) * (4 / (i + Math.random()));
+      const speed = Math.random() * (1 - 0.3) + 0.3; // Slower speed
 
-          animateBubble(bubble);
-      }
-    }
-
-    function animateBubble(bubble) {
       function moveBubble() {
-          let posX = parseFloat(bubble.style.left);
-          let posY = parseFloat(bubble.style.top);
-          
-          posX += bubble.velocityX;
-          posY += bubble.velocityY;
+          const rect = bubble.getBoundingClientRect();
+          if (rect.left <= -size || rect.right >= window.innerWidth + size) directionX *= -1; // Reverse direction on horizontal edge
+          if (rect.top <= -size || rect.bottom >= window.innerHeight + size) directionY *= -1; // Reverse direction on vertical edge
 
-          // Edge detection logic
-          if (posX <= -parseFloat(bubble.style.width) || posX >= window.innerWidth) {
-              bubble.velocityX *= -1; // Reverse direction on horizontal edge
-          }
-          if (posY <= -parseFloat(bubble.style.height) || posY >= window.innerHeight) {
-              bubble.velocityY *= -1; // Reverse direction on vertical edge
-          }
-
-          bubble.style.left = posX + 'px';
-          bubble.style.top = posY + 'px';
+          bubble.style.left = rect.left + (directionX * speed) + 'px';
+          bubble.style.top = rect.top + (directionY * speed) + 'px';
 
           requestAnimationFrame(moveBubble); // Continue moving the bubble
       }
-      moveBubble();
+
+      moveBubble(); // Start moving the bubble
     }
 
-    window.onload = function() {
-      createBubbles();
+    // Create a total of **10 bubbles** at the beginning
+    for (let i = 0; i < 10; i++) {
+       createBubble();
+   }
 
-      // Fade out intro overlay after **4 seconds**
-      setTimeout(() => {
-         const introOverlay = document.getElementById('introOverlay');
-         introOverlay.style.transition = "opacity 2s ease"; // Smooth transition effect
-         introOverlay.style.opacity = '0'; // Fade out the overlay
+   // Add event listeners to all clickable elements
+   document.querySelectorAll('.button, nav a').forEach(element => {
+       element.addEventListener('click', showSplash);
+   });
 
-         setTimeout(() => {
-             introOverlay.style.display = 'none'; // Hide overlay after fade out
-         },2000); // Wait for fade out duration before hiding
-     },4000); // Wait for **4 seconds** before starting fade out
+   // Fade out intro overlay after **4 seconds**
+   setTimeout(() => {
+       const introOverlay = document.getElementById('introOverlay');
+       introOverlay.style.transition = "opacity 2s ease"; // Smooth transition effect
+       introOverlay.style.opacity = '0'; // Fade out the overlay
 
-     document.querySelectorAll('.button, nav a').forEach(element => {
-         element.addEventListener('click', showSplash);
-     });
-   };
+       setTimeout(() => {
+           introOverlay.style.display = 'none'; // Hide overlay after fade out
+       },2000); // Wait for fade out duration before hiding
+   },4000); // Wait for **4 seconds** before starting fade out
+
 </script>
 
 </body>
